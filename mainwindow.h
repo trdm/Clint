@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtWidgets/QMainWindow>
-#include <QtWidgets/QSystemTrayIcon>
+#include <QMainWindow>
+#include <QSystemTrayIcon>
 #include <QUdpSocket>
 
 namespace Ui {

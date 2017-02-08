@@ -38,6 +38,7 @@ MainWindow::MainWindow(unsigned short p, QWidget *parent) :
         QByteArray geom = s.value("geom").toByteArray();
         restoreGeometry(geom);
     }
+    ui->listWidget->setMouseTracking(true);
 }
 
 MainWindow::~MainWindow()
@@ -48,7 +49,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::sysTrayActivate(QSystemTrayIcon::ActivationReason reason) {
     qDebug() << "Activate reason:" << reason;
-    if(reason == QSystemTrayIcon::Context || reason == QSystemTrayIcon::DoubleClick) {
+    if(reason == QSystemTrayIcon::MiddleClick /*|| reason == QSystemTrayIcon::DoubleClick*/) {
         qApp->quit();
     } else {
         show();
@@ -71,6 +72,11 @@ void MainWindow::addText(const QString &text) {
     }
 
     ui->listWidget->insertItem(0, text);
+    QListWidgetItem *it = ui->listWidget->item(0);
+//    it->setData(Qt::DisplayRole, text.mid(0, 300));
+    it->setSizeHint(QSize(600,16));
+//    it->setStatusTip(text);
+    it->setToolTip(text);
 
     foreach(QHostAddress addy, nodes) {
         socket->writeDatagram(text.toUtf8(), addy, port);

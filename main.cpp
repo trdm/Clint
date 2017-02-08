@@ -1,5 +1,5 @@
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QSystemTrayIcon>
+#include <QApplication>
+#include <QSystemTrayIcon>
 #include <QSettings>
 #include "mainwindow.h"
 
