@@ -125,3 +125,11 @@ void MainWindow::pollClipboard()
     }
 }
 
+
+
+void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    QString txt = current->text();
+    ui->textEdit->setText(txt);
+
+}

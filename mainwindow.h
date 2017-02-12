@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QUdpSocket>
+#include <QListWidgetItem>
 
 namespace Ui {
     class MainWindow;
@@ -28,6 +29,8 @@ private slots:
     void readDatagrams();
 
     void pollClipboard();
+
+    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 private:
     Ui::MainWindow *ui;
