@@ -31,7 +31,8 @@ private slots:
     void pollClipboard();
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
+protected:
+    void keyPressEvent ( QKeyEvent * event );
 private:
     Ui::MainWindow *ui;
     QUdpSocket *socket;

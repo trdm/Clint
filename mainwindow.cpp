@@ -133,3 +133,11 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
     ui->textEdit->setText(txt);
 
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() ==  Qt::Key_Escape) {
+        hide();
+    }
+
+}
