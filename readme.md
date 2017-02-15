@@ -9,8 +9,9 @@
 - Прячется в трее.
 
 ![screenshot](https://github.com/trdm/Clint/blob/master/resources/scrinshot.png)
-https://github.com/trdm/Clint/tree/master/resources
 
+
+---------------------------------------
 Предок: https://github.com/sje397/Clint
 Clint - shared multiple-entry clipboard
 ---------------------------------------
