@@ -1,6 +1,19 @@
+Простой менеджер буфера обмена.
+Функции:
+- Слежение за буфером обмена
+- Сохранение содержимого буфера обмена в списке
+- Удаление итемов из списка
+- режим с отключением слежки
+- Режим "Всегда на верху"
+- Просмотр содержимого фрагментов.
+- Прячется в трее.
+
+![screenshot](https://github.com/trdm/Clint/blob/master/resources/scrinshot.png)
+https://github.com/trdm/Clint/tree/master/resources
+
+Предок: https://github.com/sje397/Clint
 Clint - shared multiple-entry clipboard
 ---------------------------------------
-
 Usage:
 
   Clint [-p <portnum>] [-n <node address1> [-n <node address2> ...] ]

@@ -21,7 +21,7 @@ MainWindow::MainWindow(unsigned short p, QWidget *parent) :
     //connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)), this, SLOT(clipboardChanged()));
     connect(ui->listWidget, SIGNAL(clicked(QModelIndex)), this, SLOT(textActivated()));
 
-    currentText = QApplication::clipboard()->text();
+    currentText = ""; //QApplication::clipboard()->text();
 
     QTimer *timer = new QTimer(this);
     timer->setInterval(200);
@@ -39,6 +39,16 @@ MainWindow::MainWindow(unsigned short p, QWidget *parent) :
         restoreGeometry(geom);
     }
     ui->listWidget->setMouseTracking(true);
+    m_observClip = new QAction(QString::fromUtf8("Наблюдать"), this);
+    ui->mainToolBar->addAction(m_observClip);
+    m_observClip->setCheckable(true);
+    m_observClip->setChecked(true);
+
+    m_alwaysOnTop = new QAction(QString::fromUtf8("Всегда наверху"), this); /// всегда наверху
+    ui->mainToolBar->addAction(m_alwaysOnTop);
+    m_alwaysOnTop->setCheckable(true); //   m_alwaysOnTop->setChecked(true);
+
+    connect(m_alwaysOnTop, SIGNAL(toggled(bool)), this, SLOT(toggledAlwaysOnTop(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +56,35 @@ MainWindow::~MainWindow()
     delete ui;
     delete socket;
 }
+
+void MainWindow::toggledAlwaysOnTop(bool check)
+{
+    setStaysOnTop();
+}
+
+void MainWindow::setStaysOnTop()
+{
+    Qt::WindowFlags flags = windowFlags();
+    bool sot = m_alwaysOnTop->isChecked();
+    if (sot) {
+        flags |= Qt::WindowStaysOnTopHint;
+        setWindowFlags(flags);
+    } else {
+        flags ^= Qt::WindowStaysOnTopHint;
+        setWindowFlags(flags);
+    }
+    show(); // Вот тут и пряталось ОНО!! show_ыв
+}
+
+/// Будем скрывать только тогда, когда не стайонтоп
+void MainWindow::doHide()
+{
+    bool sot = m_alwaysOnTop->isChecked();
+    if (!sot)
+        hide();
+}
+
+
 
 void MainWindow::sysTrayActivate(QSystemTrayIcon::ActivationReason reason) {
     qDebug() << "Activate reason:" << reason;
@@ -94,14 +133,14 @@ void MainWindow::closeEvent(QCloseEvent *e) {
     e->ignore();
     QSettings s;
     s.setValue("geom", this->saveGeometry());
-    hide();
+    doHide();
 }
 
 void MainWindow::textActivated() {
     qApp->clipboard()->setText(ui->listWidget->currentItem()->text());
     QSettings s;
     s.setValue("geom", this->saveGeometry());
-    hide();
+    doHide();
 }
 
 void MainWindow::readDatagrams() {
@@ -121,23 +160,58 @@ void MainWindow::pollClipboard()
 {
     if(QApplication::clipboard()->text() != currentText) {
         currentText = QApplication::clipboard()->text();
-        clipboardChanged();
+        if (m_observClip->isChecked())
+            clipboardChanged();
     }
 }
 
 
 
+
 void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    QString txt = current->text();
-    ui->textEdit->setText(txt);
+    if (current) {
+        QString txt = current->text();
+        ui->textEdit->setPlainText(txt);
+    }
 
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() ==  Qt::Key_Escape) {
-        hide();
+        doHide();
+    }
+    if (ui->listWidget->hasFocus()){
+        switch (event->key()) {
+        case Qt::Key_Delete:
+            {
+                int cRowCnt, cRow = ui->listWidget->currentRow();
+                if (cRow>=0){
+                    delete ui->listWidget->takeItem(cRow);
+                }
+                cRowCnt = ui->listWidget->count();
+                if (cRowCnt>0){
+                    if (cRow<=cRowCnt){
+                        ui->listWidget->setCurrentRow(cRow);
+                    } else {
+                        ui->listWidget->setCurrentRow(cRowCnt);
+                    }
+                }
+            }
+            break;
+        case Qt::Key_Enter:
+        case Qt::Key_Return:
+            {
+                int cRowCnt, cRow = ui->listWidget->currentRow();
+                if (cRow>=0){
+                    textActivated();
+                }
+            }
+            break;
+        default:
+            break;
+        }
     }
 
 }

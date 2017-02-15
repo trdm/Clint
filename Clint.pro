@@ -4,11 +4,12 @@
 #
 #-------------------------------------------------
 # https://github.com/trdm/Clint
+# Предок: https://github.com/sje397/Clint
 
 QT       += core gui network
 #widgets
 
-TARGET = Clint
+TARGET = QClipboardSaver
 TEMPLATE = app
 
 

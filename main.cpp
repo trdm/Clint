@@ -6,9 +6,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationName("Clint");
-    a.setApplicationVersion("0.1");
-    a.setOrganizationName("sje");
+    a.setApplicationName("QClipboardSaver");
+    a.setApplicationVersion("0.0.02");
+    a.setOrganizationName("trdmsoft");
     a.setOrganizationDomain("scottellis.com.au");
 
     // select port

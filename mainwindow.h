@@ -29,6 +29,9 @@ private slots:
     void readDatagrams();
 
     void pollClipboard();
+    void toggledAlwaysOnTop(bool check);
+    void setStaysOnTop();
+    void doHide();
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 protected:
@@ -39,6 +42,8 @@ private:
     unsigned short port;
     QList<QHostAddress> nodes;
     QString currentText;
+    QAction *m_observClip; /// наблюдать за буфером обмена
+    QAction *m_alwaysOnTop; /// всегда наверху
 
     void closeEvent(QCloseEvent *e);
 };
