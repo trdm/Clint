@@ -7,6 +7,7 @@
 - Режим "Всегда на верху"
 - Просмотр содержимого фрагментов.
 - Прячется в трее.
+- Закрывается кликом средней клавишей мыши в трее.
 
 ![screenshot](https://github.com/trdm/Clint/blob/master/resources/scrinshot.png)
 

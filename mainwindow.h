@@ -31,6 +31,7 @@ private slots:
     void pollClipboard();
     void toggledAlwaysOnTop(bool check);
     void setStaysOnTop();
+    void doSplitIndent();
     void doHide();
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
@@ -44,6 +45,7 @@ private:
     QString currentText;
     QAction *m_observClip; /// наблюдать за буфером обмена
     QAction *m_alwaysOnTop; /// всегда наверху
+    QAction *m_splitIndent; ///  ПомошникИнтернетМагазина-> Помошник интернет магазина
 
     void closeEvent(QCloseEvent *e);
 };

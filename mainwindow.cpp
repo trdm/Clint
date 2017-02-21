@@ -43,12 +43,20 @@ MainWindow::MainWindow(unsigned short p, QWidget *parent) :
     ui->mainToolBar->addAction(m_observClip);
     m_observClip->setCheckable(true);
     m_observClip->setChecked(true);
+    m_observClip->setShortcut(QKeySequence("Ctrl+O"));
+    m_observClip->setToolTip(QString::fromUtf8("Наблюдать (Ctrl+O)"));
 
     m_alwaysOnTop = new QAction(QString::fromUtf8("Всегда наверху"), this); /// всегда наверху
     ui->mainToolBar->addAction(m_alwaysOnTop);
     m_alwaysOnTop->setCheckable(true); //   m_alwaysOnTop->setChecked(true);
+    m_alwaysOnTop->setShortcut(QKeySequence("Ctrl+T"));
+    m_alwaysOnTop->setToolTip(QString::fromUtf8("Всегда наверху (Ctrl+T)"));
 
     connect(m_alwaysOnTop, SIGNAL(toggled(bool)), this, SLOT(toggledAlwaysOnTop(bool)));
+
+//    m_splitIndent = new QAction(QString::fromUtf8("BB->B b"), this); /// всегда наверху
+//    ui->mainToolBar->addAction(m_splitIndent); //   m_splitIndent->setCheckable(true);
+
 }
 
 MainWindow::~MainWindow()
@@ -74,6 +82,18 @@ void MainWindow::setStaysOnTop()
         setWindowFlags(flags);
     }
     show(); // Вот тут и пряталось ОНО!! show_ыв
+}
+
+void MainWindow::doSplitIndent()
+{
+    if (ui->listWidget->count() == 0)
+        return;
+    QListWidgetItem *it = ui->listWidget->currentItem();
+    if (it){
+        QString vText = it->text();
+
+
+    }
 }
 
 /// Будем скрывать только тогда, когда не стайонтоп
