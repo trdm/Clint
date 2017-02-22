@@ -18,6 +18,7 @@ CONFIG(debug,debug|release ) {
     UI_HEADERS_DIR = release
 }
 
+win32:RC_FILE = QClipboardSaver.rc
 
 SOURCES += main.cpp\
         mainwindow.cpp
