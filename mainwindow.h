@@ -33,6 +33,7 @@ private slots:
     void setStaysOnTop();
     void doSplitIndent();
     void doHide();
+    void doSettingth();
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 protected:
@@ -45,7 +46,8 @@ private:
     QString currentText;
     QAction *m_observClip; /// наблюдать за буфером обмена
     QAction *m_alwaysOnTop; /// всегда наверху
-    QAction *m_splitIndent; ///  ПомошникИнтернетМагазина-> Помошник интернет магазина
+    QAction *m_settingth; ///  настройки
+    QAction *m_exit; ///  Выход
 
     void closeEvent(QCloseEvent *e);
 };

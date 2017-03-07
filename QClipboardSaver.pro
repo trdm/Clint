@@ -21,16 +21,19 @@ CONFIG(debug,debug|release ) {
 win32:RC_FILE = QClipboardSaver.rc
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    settingthdlg.cpp
 
 QMAKE_INFO_PLIST=Info.plist
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    settingthdlg.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    settingthdlg.ui
 
 RESOURCES += \
-    res.qrc
+    QClipboardSaver.qrc
 
 OTHER_FILES += \
     resources/clipboard.png

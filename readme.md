@@ -8,6 +8,7 @@
 - Просмотр содержимого фрагментов.
 - Прячется в трее.
 - Закрывается кликом средней клавишей мыши в трее.
+- Настройка автозагрузки при старте windows.
 
 ![screenshot](https://github.com/trdm/Clint/blob/master/resources/scrinshot.png)
 

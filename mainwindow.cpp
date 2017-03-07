@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "settingthdlg.h"
 
 #include <QtGui/QClipboard>
 #include <QMimeData>
@@ -7,6 +8,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QTimer>
+#include <QApplication>
 
 
 MainWindow::MainWindow(unsigned short p, QWidget *parent) :
@@ -54,8 +56,18 @@ MainWindow::MainWindow(unsigned short p, QWidget *parent) :
 
     connect(m_alwaysOnTop, SIGNAL(toggled(bool)), this, SLOT(toggledAlwaysOnTop(bool)));
 
-//    m_splitIndent = new QAction(QString::fromUtf8("BB->B b"), this); /// всегда наверху
-//    ui->mainToolBar->addAction(m_splitIndent); //   m_splitIndent->setCheckable(true);
+    m_settingth = new QAction(QString::fromUtf8("Настройки"), this); /// всегда наверху
+    m_settingth->setIcon(QIcon(":/images/settings"));
+    m_settingth->setIconText(QString::fromUtf8("Настройки"));
+    ui->mainToolBar->addAction(m_settingth);
+
+    connect(m_settingth, SIGNAL(triggered(bool)), this, SLOT(doSettingth()));
+    ui->mainToolBar->setIconSize(QSize(16, 16));
+    ui->mainToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+    m_exit = new QAction(QString::fromUtf8("Выход"), this);
+    ui->mainToolBar->addAction(m_exit);
+    connect(m_exit, SIGNAL(triggered(bool)), qApp, SLOT( quit() ));
 
 }
 
@@ -102,6 +114,13 @@ void MainWindow::doHide()
     bool sot = m_alwaysOnTop->isChecked();
     if (!sot)
         hide();
+}
+
+void MainWindow::doSettingth()
+{
+    SettingthDlg* sDlg = new SettingthDlg(this);
+    sDlg->exec();    
+    sDlg->deleteLater();
 }
 
 
@@ -184,8 +203,6 @@ void MainWindow::pollClipboard()
             clipboardChanged();
     }
 }
-
-
 
 
 void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

@@ -14,7 +14,7 @@
    <string>QClipboardSaver</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="res.qrc">
+   <iconset resource="QClipboardSaver.qrc">
     <normaloff>:/images/clipboard</normaloff>:/images/clipboard</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -87,7 +87,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="res.qrc"/>
+  <include location="QClipboardSaver.qrc"/>
  </resources>
  <connections/>
 </ui>
