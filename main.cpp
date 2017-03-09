@@ -2,6 +2,8 @@
 #include <QSystemTrayIcon>
 #include <QSettings>
 #include "mainwindow.h"
+#include "common/debug.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -10,16 +12,23 @@ int main(int argc, char *argv[])
     a.setApplicationVersion("0.0.02");
     a.setOrganizationName("trdmsoft");
     a.setOrganizationDomain("scottellis.com.au");
+    InstallMsgHandler("debug_log.txt");    /// теперь можно тестировать...
+    QString hFileName = "";
+    QString argId = "";
 
     // select port
     unsigned short port = 34123;
     for(int i = 1; i < argc - 1; i+=2) {
-        if(a.arguments().at(i) == "-p" || a.arguments().at(i) == "--port") {
+        argId = a.arguments().at(i);
+        if(argId == "-p" || argId == "--port") {
             port = a.arguments().at(i + 1).toShort();
+        }
+        if(argId == "-h" || argId == "--hfile") {
+            hFileName = a.arguments().at(i + 1);
         }
     }
 
-    MainWindow w(port);
+    MainWindow w(port,hFileName);
 
     // add nodes to send to
     for(int i = 1; i < argc - 1; i+=2) {
@@ -30,8 +39,12 @@ int main(int argc, char *argv[])
 
     QSystemTrayIcon sysTray(QIcon(":/images/clipboard"), &a);
     w.connect(&sysTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), &w, SLOT(sysTrayActivate(QSystemTrayIcon::ActivationReason)));
-
-    sysTray.show();
+    if (hFileName.isEmpty()) {
+        sysTray.show();
+    } else {
+        w.show();
+        a.setQuitOnLastWindowClosed(true);
+    }
 
     return a.exec();
 }

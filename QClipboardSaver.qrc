@@ -2,6 +2,5 @@
     <qresource prefix="/images">
         <file alias="clipboard">resources/clipboard.png</file>
         <file alias="settings">resources/settings.png</file>
-        <file>resources/settings0.png</file>
     </qresource>
 </RCC>

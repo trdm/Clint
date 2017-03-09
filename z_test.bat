@@ -1,0 +1,1 @@
+C:\Tools\Qt_Until\Qt473\QClipSaver.exe -h "C:\Users\Settingth\QClipSaver\histori2017_03.hdat" 

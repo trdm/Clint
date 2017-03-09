@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>QClipboardSaver</string>
+   <string>QClipSaver</string>
   </property>
   <property name="windowIcon">
    <iconset resource="QClipboardSaver.qrc">
@@ -82,7 +82,7 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-  </widget>  
+  </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

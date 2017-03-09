@@ -17,6 +17,10 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
+    void on_dirChoiceBtn_pressed();
+    void on_dirChoiceBtn_clicked();
+
+    void on_openDirBtn_clicked();
 
 private:
     Ui::SettingthDlg *ui;
