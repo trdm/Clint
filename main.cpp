@@ -8,9 +8,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     a.setApplicationName("QClipboardSaver");
-    a.setApplicationVersion("0.0.02");
+    a.setApplicationVersion("0.0.07");
     a.setOrganizationName("trdmsoft");
-    a.setOrganizationDomain("scottellis.com.au");
+    a.setOrganizationDomain("www.voltacom.ru");
     QString hFileName = "";
     QString argId = "";
 

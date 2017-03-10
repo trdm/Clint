@@ -25,6 +25,7 @@ SettingthDlg::SettingthDlg(QWidget *parent) :
     ui->loadHistoryOnStart->setChecked(st);
 
     ui->savedDataDir->setText(s.value("saveDataDir").toString());
+    ui->minClipLenght->setValue(s.value("minClipLenght",4).toInt());
 }
 
 SettingthDlg::~SettingthDlg()
@@ -39,6 +40,7 @@ void SettingthDlg::on_buttonBox_accepted()
     s.setValue("startWithOS", ui->startWithOS->isChecked() );
     s.setValue("loadHistoryOnStart", ui->loadHistoryOnStart->isChecked() );
     s.setValue("saveDataDir", ui->savedDataDir->text() );
+    s.setValue("minClipLenght", ui->minClipLenght->value() );
     #ifdef Q_OS_WIN32
         QString appName = qApp->applicationName();
         //qDebug() << appName;

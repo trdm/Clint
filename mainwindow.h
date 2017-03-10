@@ -64,6 +64,7 @@ private:
     QString m_saveDataFileName; /// Куда пишем
     QDate m_dt_today;
     QString m_idGeom; /// Идентификатор настроек геометрии.
+    int m_minClipLenght; /// Количество символов меньше которого клип не сохраняется.
 
     void closeEvent(QCloseEvent *e);
 };

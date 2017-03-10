@@ -50,12 +50,12 @@ MainWindow::MainWindow(unsigned short p, QString &hFileNm, QWidget *parent) :
 
     QSettings s;
     m_idGeom = "geom";
-    if (m_isHistoryView)
-        m_idGeom = "geomHW";
+    if (m_isHistoryView)        m_idGeom = "geomHW";
     if(s.contains(m_idGeom)) {
         QByteArray geom = s.value(m_idGeom).toByteArray();
         restoreGeometry(geom);
     }
+    m_minClipLenght = s.value("minClipLenght",4).toInt();
     bool loadHistoryOnStart = s.value("loadHistoryOnStart").toBool();
     ui->mainToolBar->setIconSize(QSize(16, 16));
     ui->mainToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -227,6 +227,10 @@ void MainWindow::addNode(const QHostAddress& nodeAddress) {
 void MainWindow::addText(const QString &text) {
     if(ui->listWidget->count() > 0 && text == ui->listWidget->item(0)->text())
         return;
+    int len = text.length();
+    if (m_minClipLenght>0 && len < m_minClipLenght ){
+        return;
+    }
     bool alreadyExist = false;
     QList<QListWidgetItem *> matches = ui->listWidget->findItems(text, Qt::MatchCaseSensitive);
     foreach(QListWidgetItem *i, matches) {
