@@ -63,6 +63,7 @@ private:
     QString m_saveDataDir;
     QString m_saveDataFileName; /// Куда пишем
     QDate m_dt_today;
+    QString m_idGeom; /// Идентификатор настроек геометрии.
 
     void closeEvent(QCloseEvent *e);
 };

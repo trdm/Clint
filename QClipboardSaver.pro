@@ -24,22 +24,12 @@ win32:RC_FILE = QClipboardSaver.rc
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    settingthdlg.cpp \
-    common/sys_conv.cpp \
-    common/codecs.cpp \
-    common/debug.cpp \
-    common/params.cpp
+    settingthdlg.cpp
 
 QMAKE_INFO_PLIST=Info.plist
 
 HEADERS  += mainwindow.h \
-    settingthdlg.h \
-    common/params.h \
-    common/sys_conv.h \
-    common/types.h \
-    common/codecs.h \
-    common/debug.h \
-    common/export.h
+    settingthdlg.h
 
 FORMS    += mainwindow.ui \
     settingthdlg.ui

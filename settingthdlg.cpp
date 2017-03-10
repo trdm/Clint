@@ -14,10 +14,16 @@ SettingthDlg::SettingthDlg(QWidget *parent) :
 {
     ui->setupUi(this);
     QSettings s;
-    bool st = s.value("startWithOS").toBool();
+    bool st;
+    st = s.value("startWithOS").toBool();
     ui->startWithOS->setChecked(st);
+
     st = s.value("saveData").toBool();
     ui->saveData->setChecked(st);
+
+    st = s.value("loadHistoryOnStart").toBool();
+    ui->loadHistoryOnStart->setChecked(st);
+
     ui->savedDataDir->setText(s.value("saveDataDir").toString());
 }
 
@@ -31,6 +37,7 @@ void SettingthDlg::on_buttonBox_accepted()
     QSettings s;
     s.setValue("saveData", ui->saveData->isChecked() );
     s.setValue("startWithOS", ui->startWithOS->isChecked() );
+    s.setValue("loadHistoryOnStart", ui->loadHistoryOnStart->isChecked() );
     s.setValue("saveDataDir", ui->savedDataDir->text() );
     #ifdef Q_OS_WIN32
         QString appName = qApp->applicationName();
@@ -59,8 +66,6 @@ void SettingthDlg::on_dirChoiceBtn_pressed()
     if (!directory.isEmpty()){
         ui->savedDataDir->setText(directory);
     }
-    //ui->dirChoiceBtn->released();
-    //ui->dirChoiceBtn->setAutoRepeat(true);
 }
 
 void SettingthDlg::on_dirChoiceBtn_clicked()

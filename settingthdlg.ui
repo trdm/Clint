@@ -17,6 +17,21 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
+   </property>
    <item>
     <widget class="QCheckBox" name="startWithOS">
      <property name="sizePolicy">
@@ -39,6 +54,13 @@
      </property>
      <property name="text">
       <string>Запускать при старте операционной системы</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="loadHistoryOnStart">
+     <property name="text">
+      <string>Считывать историю при старте</string>
      </property>
     </widget>
    </item>

@@ -49,10 +49,14 @@ MainWindow::MainWindow(unsigned short p, QString &hFileNm, QWidget *parent) :
 
 
     QSettings s;
-    if(s.contains("geom")) {
-        QByteArray geom = s.value("geom").toByteArray();
+    m_idGeom = "geom";
+    if (m_isHistoryView)
+        m_idGeom = "geomHW";
+    if(s.contains(m_idGeom)) {
+        QByteArray geom = s.value(m_idGeom).toByteArray();
         restoreGeometry(geom);
     }
+    bool loadHistoryOnStart = s.value("loadHistoryOnStart").toBool();
     ui->mainToolBar->setIconSize(QSize(16, 16));
     ui->mainToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     if (!m_isHistoryView){
@@ -97,10 +101,13 @@ MainWindow::MainWindow(unsigned short p, QString &hFileNm, QWidget *parent) :
     m_saveData = false;
     m_saveDataDir = "";
     m_saveDataFileName = "";
+    doSettingthLoad();
     if (!m_isHistoryView) {
-        doSettingthLoad();
+        if (loadHistoryOnStart) {
+            m_historyViewFileNm = m_saveDataFileName;
+            doHistoryLoad();
+        }
     } else {
-        doSettingthLoad();
         doHistoryLoad();
     }
 
@@ -180,19 +187,18 @@ void MainWindow::doHistory()
                                 options);
     if (!fileName.isEmpty()) {
         QString sUrl = qApp->applicationFilePath();
-//        sUrl.append(" -h \"").append(fileName).append("\"");
-//        qDebug() << "sUrl" << sUrl;
-//        sUrl = sUrl.replace("/","\\");
-//        QDesktopServices::openUrl(QUrl(sUrl));
 
-        sUrl = "\"";
-        sUrl.append(fileName).append("\"");
+        // Не работает, если имя файла в кавычках
+        // sUrl = "\"";        sUrl.append(fileName).append("\"");
+        sUrl = fileName;
         QString program = qApp->applicationFilePath();
         program = program.replace("/","\\");
         sUrl = sUrl.replace("/","\\");
+        //program = "C:/Tolls/Qt_Until/Qt473/QClipSaver.exe"; // Так работает.
 
         QStringList arguments;
         arguments << "-h" << sUrl;
+        //qDebug() << "program" << program << "arguments" << arguments;
 
         QProcess::startDetached(program, arguments);
 
@@ -276,6 +282,7 @@ void MainWindow::doHistoryLoad()
        stream >> hist_text;        //ui->listWidget->addItem(hist_text);
        if (li.contains(hist_text))
            continue;
+       li.append(hist_text);
        QListWidgetItem *it = new QListWidgetItem(hist_text, ui->listWidget);
        it->setSizeHint(QSize(600,16));
        it->setToolTip(hist_text);
@@ -294,14 +301,14 @@ void MainWindow::clipboardChanged() {
 void MainWindow::closeEvent(QCloseEvent *e) {
     e->ignore();
     QSettings s;
-    s.setValue("geom", this->saveGeometry());
+    s.setValue(m_idGeom, this->saveGeometry());
     doHide();
 }
 
 void MainWindow::textActivated() {
     qApp->clipboard()->setText(ui->listWidget->currentItem()->text());
     QSettings s;
-    s.setValue("geom", this->saveGeometry());
+    s.setValue(m_idGeom, this->saveGeometry());
     doHide();
 }
 
@@ -391,10 +398,8 @@ void MainWindow::doSettingthLoad()
     m_saveData = s.value("saveData").toBool();
     m_saveDataDir = s.value("saveDataDir").toString();
     m_saveDataFileName = "";
-    if (m_saveData){
-        m_dt_today = QDate::currentDate();
-        m_saveDataFileName = m_saveDataDir; // m_saveDataFileName.append(QDir::separator());
-        m_saveDataFileName.append("/histori").append(m_dt_today.toString("yyyy_MM")).append(".hdat");
-    }
-    //qDebug() << "m_saveDataFileName" << m_saveDataFileName;
+
+    m_dt_today = QDate::currentDate();
+    m_saveDataFileName = m_saveDataDir; // m_saveDataFileName.append(QDir::separator());
+    m_saveDataFileName.append("/histori").append(m_dt_today.toString("yyyy_MM")).append(".hdat");
 }

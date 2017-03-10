@@ -9,6 +9,7 @@
 - Прячется в трее.
 - Закрывается кликом средней клавишей мыши в трее.
 - Настройка автозагрузки при старте windows.
+- Настройка считывания истории при старте
 
 ![screenshot](https://github.com/trdm/Clint/blob/master/resources/scrinshot.png)
 

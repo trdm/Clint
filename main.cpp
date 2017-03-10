@@ -2,7 +2,6 @@
 #include <QSystemTrayIcon>
 #include <QSettings>
 #include "mainwindow.h"
-#include "common/debug.h"
 
 
 int main(int argc, char *argv[])
@@ -12,7 +11,6 @@ int main(int argc, char *argv[])
     a.setApplicationVersion("0.0.02");
     a.setOrganizationName("trdmsoft");
     a.setOrganizationDomain("scottellis.com.au");
-    InstallMsgHandler("debug_log.txt");    /// теперь можно тестировать...
     QString hFileName = "";
     QString argId = "";
 
