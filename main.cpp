@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    a.setApplicationName("QClipboardSaver");
+    a.setApplicationName("QClipSaver");
     a.setApplicationVersion("0.0.07");
     a.setOrganizationName("trdmsoft");
     a.setOrganizationDomain("www.voltacom.ru");
