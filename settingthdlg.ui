@@ -67,6 +67,13 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <widget class="QCheckBox" name="activateOnSinglClick">
+       <property name="text">
+        <string>Копировать в буфер текст одинарным кликом, а не двойным.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QCheckBox" name="saveData">
        <property name="enabled">
         <bool>true</bool>

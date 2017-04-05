@@ -38,8 +38,12 @@ private slots:
     void doSettingth();
     void doHistory();
     void doHistoryLoad();
+    void changeEvent(QEvent *event );
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_listWidget_doubleClicked(const QModelIndex &index);
+    void on_listWidget_Clicked(const QModelIndex &index);
+
 protected:
     void keyPressEvent ( QKeyEvent * event );
     void contextMenuEvent ( QContextMenuEvent * event );
@@ -60,11 +64,14 @@ private:
     bool m_saveData;
     bool m_isHistoryView; /// режим просмотра истории
     QString m_historyViewFileNm; /// имя файла просмотра истории
+    //{ Настройки
     QString m_saveDataDir;
+    int m_minClipLenght; /// Количество символов меньше которого клип не сохраняется.
+    bool m_activateOnSinglClick; /// Копировать в буфер по ординарному клику мыши на списке, а не по двойному
+    //} Настройки
     QString m_saveDataFileName; /// Куда пишем
     QDate m_dt_today;
     QString m_idGeom; /// Идентификатор настроек геометрии.
-    int m_minClipLenght; /// Количество символов меньше которого клип не сохраняется.
 
     void closeEvent(QCloseEvent *e);
 };

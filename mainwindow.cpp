@@ -29,7 +29,7 @@ MainWindow::MainWindow(unsigned short p, QString &hFileNm, QWidget *parent) :
 
     // busted in Qt5
     //connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)), this, SLOT(clipboardChanged()));
-    connect(ui->listWidget, SIGNAL(clicked(QModelIndex)), this, SLOT(textActivated()));
+    connect(ui->listWidget, SIGNAL(clicked(QModelIndex)), this, SLOT(on_listWidget_Clicked(QModelIndex)));
     QString sTitle = "QClipSaver";
     currentText = ""; //QApplication::clipboard()->text();
     if (!m_isHistoryView){
@@ -100,6 +100,7 @@ MainWindow::MainWindow(unsigned short p, QString &hFileNm, QWidget *parent) :
 
     m_saveData = false;
     m_saveDataDir = "";
+    m_activateOnSinglClick = true;
     m_saveDataFileName = "";
     doSettingthLoad();
     if (!m_isHistoryView) {
@@ -145,8 +146,6 @@ void MainWindow::doSplitIndent()
     QListWidgetItem *it = ui->listWidget->currentItem();
     if (it){
         QString vText = it->text();
-
-
     }
 }
 
@@ -295,6 +294,18 @@ void MainWindow::doHistoryLoad()
     hFile.close();
 }
 
+void MainWindow::changeEvent(QEvent *event){
+    // неудачная попытка. окно валивается в цикл и висит.
+//    if (event->type() == QEvent::WindowStateChange) {
+//        if (isMinimized()) {
+//            this->hide();
+//        } else if (isMaximized()) {
+//            this->show();
+//        }
+//    }
+    QMainWindow::changeEvent(event);
+}
+
 void MainWindow::clipboardChanged() {
     qDebug() << "Clipboard changed";
     if(qApp->clipboard()->mimeData()->hasText()) {
@@ -400,10 +411,24 @@ void MainWindow::doSettingthLoad()
 {
     QSettings s;
     m_saveData = s.value("saveData").toBool();
+    m_activateOnSinglClick = s.value("activateOnSinglClick").toBool();
     m_saveDataDir = s.value("saveDataDir").toString();
     m_saveDataFileName = "";
 
     m_dt_today = QDate::currentDate();
     m_saveDataFileName = m_saveDataDir; // m_saveDataFileName.append(QDir::separator());
     m_saveDataFileName.append("/histori").append(m_dt_today.toString("yyyy_MM")).append(".hdat");
+}
+
+void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index){
+    if (m_activateOnSinglClick)
+        return;
+    textActivated();
+
+}
+
+void MainWindow::on_listWidget_Clicked(const QModelIndex &index){
+    if (!m_activateOnSinglClick)
+        return;
+    textActivated();
 }

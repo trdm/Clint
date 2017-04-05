@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setApplicationName("QClipSaver");
     a.setApplicationVersion("0.0.07");
-    a.setOrganizationName("trdmsoft");
+    a.setOrganizationName("trdmSoft");
     a.setOrganizationDomain("www.voltacom.ru");
     QString hFileName = "";
     QString argId = "";
